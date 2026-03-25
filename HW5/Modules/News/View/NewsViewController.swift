@@ -207,8 +207,9 @@ extension NewsViewController: UITableViewDelegate {
                 return
             }
 
-            self.presentShareSheet(
-                for: articleURL,
+            VKShareService.shared.share(
+                url: articleURL,
+                from: self,
                 sourceView: tableView,
                 sourceRect: tableView.rectForRow(at: indexPath)
             )

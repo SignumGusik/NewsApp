@@ -32,12 +32,7 @@ enum AppConstants {
         static let articleLinkUnavailable = "Article link is unavailable."
         static let pleaseWait = "Please wait"
         static let noSavedArticles = "No saved articles yet"
-    }
-
-    enum Placeholders {
-        static let untitledArticle = "Untitled article"
-        static let noDescription = "No description available."
-        static let photoSystemName = "photo"
+        static let vkShareUnavailable = "VK share is unavailable."
     }
 
     enum Symbols {
@@ -50,6 +45,14 @@ enum AppConstants {
         static let newsTabSelected = "newspaper.fill"
         static let favoritesTab = "heart"
         static let favoritesTabSelected = "heart.fill"
+
+        static let vk = "paperplane"
+    }
+
+    enum Placeholders {
+        static let untitledArticle = "Untitled article"
+        static let noDescription = "No description available."
+        static let photoSystemName = "photo"
     }
 
     enum StorageKeys {

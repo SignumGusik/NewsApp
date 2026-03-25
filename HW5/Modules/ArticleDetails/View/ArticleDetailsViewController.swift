@@ -41,6 +41,11 @@ final class ArticleDetailsViewController: UIViewController, WKNavigationDelegate
         imageSystemName: AppConstants.Symbols.share
     )
 
+    private let vkButton = UIButton.makeFilled(
+        title: "VK",
+        imageSystemName: AppConstants.Symbols.vk
+    )
+
     private let favoriteButton = UIButton.makeFilled(
         title: AppConstants.Titles.save,
         imageSystemName: AppConstants.Symbols.heart
@@ -147,6 +152,7 @@ private extension ArticleDetailsViewController {
             titleLabel,
             descriptionLabel,
             shareButton,
+            vkButton,
             favoriteButton
         )
 
@@ -180,9 +186,15 @@ private extension ArticleDetailsViewController {
             .pinBottom(toAnchor: headerCard.contentView.bottomAnchor, constant: -NewsUIConstants.Insets.xLarge)
             .setHeight(NewsUIConstants.Sizes.buttonHeight)
 
-        favoriteButton
+        vkButton
             .pinTop(toAnchor: descriptionLabel.bottomAnchor, constant: NewsUIConstants.Insets.large)
             .pinLeading(to: shareButton.trailingAnchor, constant: NewsUIConstants.Insets.medium)
+            .pinBottom(toAnchor: headerCard.contentView.bottomAnchor, constant: -NewsUIConstants.Insets.xLarge)
+            .setHeight(NewsUIConstants.Sizes.buttonHeight)
+
+        favoriteButton
+            .pinTop(toAnchor: descriptionLabel.bottomAnchor, constant: NewsUIConstants.Insets.large)
+            .pinLeading(to: vkButton.trailingAnchor, constant: NewsUIConstants.Insets.medium)
             .pinBottom(toAnchor: headerCard.contentView.bottomAnchor, constant: -NewsUIConstants.Insets.xLarge)
             .setHeight(NewsUIConstants.Sizes.buttonHeight)
 
@@ -221,6 +233,7 @@ private extension ArticleDetailsViewController {
 
     func setupActions() {
         shareButton.addTarget(self, action: #selector(shareTapped), for: .touchUpInside)
+        vkButton.addTarget(self, action: #selector(vkTapped), for: .touchUpInside)
         favoriteButton.addTarget(self, action: #selector(favoriteTapped), for: .touchUpInside)
     }
 
@@ -279,6 +292,18 @@ private extension ArticleDetailsViewController {
     }
 
     @objc
+    func vkTapped() {
+        guard let url = article.articleURL else { return }
+
+        VKShareService.shared.share(
+            url: url,
+            from: self,
+            sourceView: vkButton,
+            sourceRect: vkButton.bounds
+        )
+    }
+
+    @objc
     func favoriteTapped() {
         FavoritesStorage.shared.toggle(article)
         updateFavoriteButton()
@@ -289,8 +314,6 @@ private extension ArticleDetailsViewController {
 
 extension ArticleDetailsViewController {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        // The loading overlay is a lightweight placeholder shown
-        // until the external article page finishes loading inside WKWebView.
         UIView.animate(withDuration: NewsUIConstants.Animation.loadingFade) {
             self.loadingCard.alpha = 0
         } completion: { _ in

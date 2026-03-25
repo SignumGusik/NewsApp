@@ -21,3 +21,12 @@ enum NetworkConstants {
         static let requestID = "requestId"
     }
 }
+
+enum VKShareConstants {
+    // VK web share endpoint.
+    static let shareBaseURL = "https://vk.com/share.php"
+
+    enum QueryItems {
+        static let url = "url"
+    }
+}
