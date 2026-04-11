@@ -24,9 +24,6 @@
 ### Избранное
 ![Favorites](./Screenshots/favorites.png)
 
-### Карточки новостей
-![News Cards](./Screenshots/news-cards.png)
-
 ---
 
 ## Основные возможности
